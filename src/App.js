@@ -7,6 +7,8 @@ import {
 import { useMetaMask } from 'metamask-react';
 import MetaMaskMissing from './components/MetaMaskMissing';
 import ConnectMetamask from './pages/Auth';
+import RouteGuard from './components/RouteGuard';
+import Home from './pages/Home';
 
 function Routing() {
   const { status } = useMetaMask();
@@ -16,7 +18,11 @@ function Routing() {
     <Router>
       <Routes>
         <Route path="/login" element={<ConnectMetamask />}></Route>
-        <Route path="/" element={<ConnectMetamask />}></Route>
+        <Route path="/" element={
+          <RouteGuard>
+            <Home />
+          </RouteGuard>
+        }></Route>
       </Routes>
     </Router>
   );

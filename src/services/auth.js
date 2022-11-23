@@ -30,3 +30,9 @@ export const verifySignature = async (wallet_address, signature) => {
     });
     return response.data;
 }
+
+export const logoutUser = () => {
+    let jwt = localStorage.getItem("token");
+    // TODO: blacklist JWT token from being re-used beyond this point.
+    localStorage.removeItem("token");
+}

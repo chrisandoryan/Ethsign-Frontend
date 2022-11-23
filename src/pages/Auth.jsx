@@ -1,9 +1,10 @@
 import { useMetaMask } from "metamask-react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
 import ConnectWalletButton from "../components/ConnectWalletButton";
-import { getWalletNonce, isWalletRegistered, registerUser, verifySignature } from "../services/auth";
+import { getWalletNonce, isWalletRegistered, logoutUser, registerUser, verifySignature } from "../services/auth";
 
 function Registration(props) {
     const handleAccountRegistration = async (e) => {
@@ -49,47 +50,13 @@ function Registration(props) {
     );
 }
 
-function Login(props) {
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        let email = e.target.email.value;
-        let password = e.target.password.value;
-
-        // let login_status = await loginUser(email, password, props.wallet_address);
-        // console.log(login_status);
-
-    }
-
-    return (
-        <div>
-            <p>Wallet {props.wallet_address} is already registered! Please login.</p>
-            <Form onSubmit={handleLogin}>
-                <Form.Group className="mb-3" controlId="">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Email" name="email" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" name="password" />
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                    Login
-                </Button>
-            </Form>
-        </div>
-    )
-}
-
 function ConnectMetamask() {
     const [loading, setLoading] = useState(false);
     const [showForm, setShowForm] = useState("");
     const [address, setAddress] = useState("");
+    const navigate = useNavigate();
 
     const handleSignMessage = (web3, wallet_address, nonce) => {
-        // Define instance of web3
         return new Promise((resolve, reject) =>
             web3.eth.personal.sign(
                 web3.utils.fromUtf8(`Nonce: ${nonce}`),
@@ -107,7 +74,6 @@ function ConnectMetamask() {
 
         try {
             if (window?.ethereum?.isMetaMask) {
-                // Desktop browser
                 const accounts = await window.ethereum.request({
                     method: "eth_requestAccounts",
                 });
@@ -127,8 +93,9 @@ function ConnectMetamask() {
                     const signedMessage = await handleSignMessage(web3, account, nonce)
                     
                     let loginResult = await verifySignature(account, signedMessage.signature);
-                    console.log(loginResult);
+                    localStorage.setItem("token", JSON.stringify(loginResult));
 
+                    navigate('/', { replace: true });
                 }
             }
         } catch (error) {
@@ -138,16 +105,20 @@ function ConnectMetamask() {
         setLoading(false);
     };
 
-    const onPressLogout = () => setAddress("");
+    const onPressLogout = async () => {
+        setAddress("");
+        let logoutResp = await logoutUser();
+    }
+
     return (
         <header className="App-header">
             <h2>
-                Welcome to Project Verifieth.
+                Welcome to Project Ethsign.
             </h2>
             {
                 showForm ? (
                     showForm === "registration" ?
-                        <Registration wallet_address={address} /> : <Login wallet_address={address} />
+                        <Registration wallet_address={address} /> : (null)
                 ) : (
                     <ConnectWalletButton
                         onPressConnect={onPressConnect}

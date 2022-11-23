@@ -21,7 +21,7 @@ const ConnectWalletButton = ({
         </button>
       ) : (
         <button onClick={onPressConnect} className={styles["connect-wallet"]}>
-          Connect with MetaMask
+          Login with MetaMask
         </button>
       )}
     </div>
