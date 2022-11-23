@@ -4,9 +4,9 @@ import {
   Route,
   Routes
 } from "react-router-dom";
-import Login from './pages/Login';
 import { useMetaMask } from 'metamask-react';
 import MetaMaskMissing from './components/MetaMaskMissing';
+import ConnectMetamask from './pages/Auth';
 
 function Routing() {
   const { status } = useMetaMask();
@@ -15,8 +15,8 @@ function Routing() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/login" element={<ConnectMetamask />}></Route>
+        <Route path="/" element={<ConnectMetamask />}></Route>
       </Routes>
     </Router>
   );
