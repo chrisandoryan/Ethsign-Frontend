@@ -9,6 +9,7 @@ import MetaMaskMissing from './components/MetaMaskMissing';
 import ConnectMetamask from './pages/Auth';
 import RouteGuard from './components/RouteGuard';
 import Home from './pages/Home';
+import { ToastContainer } from 'react-toastify';
 
 function Routing() {
   const { status } = useMetaMask();
@@ -31,6 +32,17 @@ function Routing() {
 function App() {
   return (
     <div className="App">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Routing />
     </div>
   );

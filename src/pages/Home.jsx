@@ -1,12 +1,9 @@
 
 
-
-
 function Home() {
-
     return (
-        <div></div>
-    )
+        <div>Welcome!</div>
+    );
 }
 
 export default Home;

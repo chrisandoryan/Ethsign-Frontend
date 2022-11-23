@@ -2,6 +2,7 @@ import { useMetaMask } from "metamask-react";
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Web3 from "web3";
 import ConnectWalletButton from "../components/ConnectWalletButton";
 import { getWalletNonce, isWalletRegistered, logoutUser, registerUser, verifySignature } from "../services/auth";
@@ -14,9 +15,13 @@ function Registration(props) {
         let password = e.target.password.value;
 
         let regis_status = await registerUser(fullname, email, password, props.wallet_address);
-        console.log(regis_status);
-
-        // TODO: display message (success/failed)
+        
+        if (regis_status.success) {
+            toast('Registration success!');
+        }
+        else {
+            toast('Registration failed.');
+        }
     }
 
     return (
@@ -95,6 +100,7 @@ function ConnectMetamask() {
                     let loginResult = await verifySignature(account, signedMessage.signature);
                     localStorage.setItem("token", JSON.stringify(loginResult));
 
+                    toast(`Welcome back, ${loginResult.user.email}!`);
                     navigate('/', { replace: true });
                 }
             }
@@ -107,7 +113,7 @@ function ConnectMetamask() {
 
     const onPressLogout = async () => {
         setAddress("");
-        let logoutResp = await logoutUser();
+        await logoutUser();
     }
 
     return (
