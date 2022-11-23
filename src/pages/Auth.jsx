@@ -8,6 +8,8 @@ import ConnectWalletButton from "../components/ConnectWalletButton";
 import { getWalletNonce, isWalletRegistered, logoutUser, registerUser, verifySignature } from "../services/auth";
 
 function Registration(props) {
+    const navigate = useNavigate();
+
     const handleAccountRegistration = async (e) => {
         e.preventDefault();
         let fullname = e.target.fullname.value;
@@ -15,13 +17,13 @@ function Registration(props) {
         let password = e.target.password.value;
 
         let regis_status = await registerUser(fullname, email, password, props.wallet_address);
-        
         if (regis_status.success) {
             toast('Registration success!');
         }
         else {
             toast('Registration failed.');
         }
+        navigate('/', { replace: true });
     }
 
     return (
