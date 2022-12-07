@@ -15,6 +15,8 @@
 			</li>
 			<li><a href="#3a" data-toggle="tab">View All Document</a>
 			</li>
+			<li><a href="#4a" data-toggle="tab">Upload Document</a>
+			</li>
 		</ul>
 
 			<div class="tab-content clearfix">
@@ -26,7 +28,16 @@
 				</div>
         <div class="tab-pane" id="3a">
           <h3>Disini buat liat semua document</h3>
-				</div>   
+				</div>
+				<div class="tab-pane" id="4a">
+          <h3>
+						<form action="upload.php" method="post">
+						  Select document to upload:
+						  <input type="file" name="fileToUpload" id="fileToUpload">
+						  <input type="submit" value="Upload File" name="submit">
+						</form>
+					</h3>
+				</div>    
 			</div>
   </div>
 
