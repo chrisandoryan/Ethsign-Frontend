@@ -66,3 +66,12 @@ code {
 .doc-action {
   display: flex;
 }
+
+.doc-viewer {
+  display: flex;
+  justify-content: center;
+}
+
+.doc-upload-form {
+  text-align: left;
+}

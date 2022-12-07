@@ -20,3 +20,14 @@ export const getDocumentDetail = async (doc_id) => {
     });
     return response.data;
 }
+
+export const uploadDocument = async (docFormData) => {
+    let token = getBearerTokenFromStorage();
+    let response = await axios.post('/upload', docFormData, { 
+        headers: { 
+            "Authorization": token,
+            "Content-Type": "multipart/form-data"
+        }
+    });
+    return response.data;
+}

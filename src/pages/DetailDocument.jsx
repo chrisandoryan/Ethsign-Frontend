@@ -13,6 +13,7 @@ function DetailDocument(props) {
         getDocumentDetail(docId)
             .then((data) => {
                 console.log(data);
+                setDocDetail(data.document);
             })
             .catch((err) => {
                 console.log(err);
@@ -24,7 +25,7 @@ function DetailDocument(props) {
                 <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                 <Breadcrumb.Item active>Document</Breadcrumb.Item>
             </Breadcrumb>
-            <DocPreview />
+            <DocPreview doc_file={docDetail?.file_buffer} />
         </React.Fragment>
     );
 }

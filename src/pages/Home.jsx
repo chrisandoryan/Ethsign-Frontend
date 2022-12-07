@@ -1,3 +1,4 @@
+import UploadDocument from "./fragments/UploadDocument";
 import ViewAllDocuments from "./fragments/ViewAllDocuments";
 // import "../styles/Home.css";
 
@@ -15,17 +16,11 @@ function Home() {
                     </li>
                 </ul>
                 <div className="tab-content clearfix">
-                    <div className="tab-pane" id="view-documents">
+                    <div className="tab-pane active" id="view-documents">
                         <ViewAllDocuments />
                     </div>
                     <div className="tab-pane" id="upload-document">
-                        <h3>
-                            <form action="upload.php" method="post">
-                                Select document to upload:
-                                <input type="file" name="fileToUpload" id="fileToUpload" />
-                                <input type="submit" defaultValue="Upload File" name="submit" />
-                            </form>
-                        </h3>
+                        <UploadDocument />
                     </div>
                 </div>
             </div>
