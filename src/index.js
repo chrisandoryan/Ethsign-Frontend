@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MetaMaskProvider } from "metamask-react";
@@ -8,8 +7,21 @@ import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import '@tremor/react/dist/esm/tremor.css';
 
 axios.defaults.baseURL = 'http://localhost:3000';
+axios.interceptors.response.use(
+  function (response) {
+    return response
+  },
+  function (error) {
+    if (403 === error.response.status || 401 === error.response.status) {
+      localStorage.removeItem("token");
+    } else {
+      return Promise.reject(error)
+    }
+  }
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
