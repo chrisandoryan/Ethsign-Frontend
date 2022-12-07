@@ -1,29 +1,22 @@
-import ViewDocs from "../components/ViewDocs";
+import ViewAllDocuments from "./fragments/ViewAllDocuments";
 // import "../styles/Home.css";
 
 
 function Home() {
     return (
         <div>
-            <div className="container"><h1>Ethsign Project. </h1></div>
-            <div id="exTab1" className="container">
+            <div id="doc-tabs" className="container">
                 <ul className="nav nav-pills">
                     <li className="active">
                         <a href="#view-documents" data-toggle="tab">View All Documents</a>
-                    </li>
-                    <li>
-                        <a href="#sign-document" data-toggle="tab">Sign Document</a>
                     </li>
                     <li>
                         <a href="#upload-document" data-toggle="tab">Upload Document</a>
                     </li>
                 </ul>
                 <div className="tab-content clearfix">
-                    <div className="tab-pane" id="sign-document">
-                        <h3>Disini buat sign document</h3>
-                    </div>
                     <div className="tab-pane" id="view-documents">
-                        <ViewDocs />
+                        <ViewAllDocuments />
                     </div>
                     <div className="tab-pane" id="upload-document">
                         <h3>

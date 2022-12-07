@@ -10,6 +10,8 @@ import ConnectMetamask from './pages/Auth';
 import RouteGuard from './components/RouteGuard';
 import Home from './pages/Home';
 import { ToastContainer } from 'react-toastify';
+import DetailDocument from './pages/DetailDocument';
+import Head from './components/Head';
 
 function Routing() {
   const { status } = useMetaMask();
@@ -22,6 +24,11 @@ function Routing() {
         <Route path="/" element={
           <RouteGuard>
             <Home />
+          </RouteGuard>
+        }></Route>
+        <Route path="/document/:docId" element={
+          <RouteGuard>
+            <DetailDocument />
           </RouteGuard>
         }></Route>
       </Routes>
@@ -43,7 +50,10 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <Routing />
+      <Head />
+      <div className="container">
+        <Routing />
+      </div>
     </div>
   );
 }

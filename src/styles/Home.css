@@ -2,7 +2,7 @@ body {
   padding : 10px ;
 }
 
-#exTab1 .tab-content {
+#doc-tabs .tab-content {
   color : white;
   padding : 5px 15px;
 }
@@ -15,7 +15,7 @@ body {
 
 /* remove border radius for the tab */
 
-#exTab1 .nav-pills > li > a {
+#doc-tabs .nav-pills > li > a {
   border-radius: 0;
 }
 
