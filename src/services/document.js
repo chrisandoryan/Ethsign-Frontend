@@ -31,3 +31,13 @@ export const uploadDocument = async (docFormData) => {
     });
     return response.data;
 }
+
+export const signDocument = async (doc_id) => {
+    let token = getBearerTokenFromStorage();
+    let response = await axios.post(`/sign/${doc_id}`, null, { 
+        headers: { 
+            "Authorization": token,
+        }
+    });
+    return response.data;
+}
