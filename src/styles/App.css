@@ -79,3 +79,11 @@ code {
 .tab-content {
   margin-top: 1.5em;
 }
+
+.web-head {
+  margin: 3em;
+}
+
+.tab-control {
+  text-decoration: none;
+}

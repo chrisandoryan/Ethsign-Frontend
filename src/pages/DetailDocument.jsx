@@ -24,17 +24,20 @@ function DetailDocument(props) {
     }, []);
     return (
         <React.Fragment>
-            <Breadcrumb>
-                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                <Breadcrumb.Item active>Document</Breadcrumb.Item>
-            </Breadcrumb>
-            {
-                loading ? (
-                    <Loading />
-                ) : (
-                    <DocPreview doc_file={docDetail?.file_buffer} />
-                )
-            }
+            <div className="container">
+                <Breadcrumb>
+                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                    <Breadcrumb.Item active>Documents</Breadcrumb.Item>
+                    <Breadcrumb.Item active>{docDetail?.title} | {docDetail?.doc_id}</Breadcrumb.Item>
+                </Breadcrumb>
+                {
+                    loading ? (
+                        <Loading />
+                    ) : (
+                        <DocPreview doc_file={docDetail?.file_buffer} />
+                    )
+                }
+            </div>
         </React.Fragment>
     );
 }

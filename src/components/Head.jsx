@@ -2,7 +2,10 @@
 
 function Head() {
     return (
-        <div className="container"><h1>Ethsign Project. </h1></div>
+        <div className="web-head">
+            <h1>Ethsign.</h1>
+            <h2>An Aptly Simple Blockchain-powered Digital Signature Platform.</h2>
+        </div>
     );
 }
 

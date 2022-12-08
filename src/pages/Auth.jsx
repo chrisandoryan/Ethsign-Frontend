@@ -120,9 +120,11 @@ function ConnectMetamask() {
 
     return (
         <header className="App-header">
-            <h2>
-                Welcome to Project Ethsign.
-            </h2>
+            <div className="mb-5">
+                <h1 className="">
+                    Welcome to Ethsign.
+                </h1>
+            </div>
             {
                 showForm ? (
                     showForm === "registration" ?

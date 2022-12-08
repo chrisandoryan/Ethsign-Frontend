@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Accordion, Badge, Button, Modal, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getAllDocuments, getDocumentDetail, signDocument } from "../../services/document";
 import { getWalletAddressFromStorage } from "../../services/storage";
 import { humanFileSize } from "../../utils/fileSize";
@@ -13,8 +14,8 @@ function ViewAllDocuments() {
 
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const closeSignConfirmation = () => setShow(false);
+    const showSignConfirmation = () => setShow(true);
 
     useEffect(() => {
         setLoading(true);
@@ -28,14 +29,21 @@ function ViewAllDocuments() {
             })
     }, []);
 
-    const displaySignConfirmation = (doc_id) => {
-        handleShow();
-        setActiveDocument(doc_id);
+    const displaySignConfirmation = (document) => {
+        showSignConfirmation();
+        setActiveDocument(document);
     }
 
     const handleDocumentSigning = async () => {
-        let sign = await signDocument(activeDocument);
-        console.log(sign);
+        let sign = await signDocument(activeDocument.doc_id);
+        if (sign.success) {
+            toast(`Document with title: ${activeDocument.doc_title} has been signed!`);
+        }
+        else {
+            toast('Document signing failed, please try again later.');
+        }
+        setActiveDocument(null);
+        closeSignConfirmation();
     }
 
     return (
@@ -82,7 +90,7 @@ function ViewAllDocuments() {
                                     </div>
                                     <div className="doc-action">
                                         <Link to={`/document/${document.doc_id}`}><Button variant="primary" className="">View Document</Button></Link>{' '}
-                                        <Button variant="success" className="ms-2" disabled={userAlreadySigned} onClick={() => displaySignConfirmation(document.doc_id)}>{
+                                        <Button variant="success" className="ms-2" disabled={userAlreadySigned} onClick={() => displaySignConfirmation(document)}>{
                                             userAlreadySigned ? "Already Signed" : "Sign Document"
                                         }</Button>{' '}
                                     </div>
@@ -92,7 +100,7 @@ function ViewAllDocuments() {
                     })
                 }
             </Accordion>
-            <Modal style={{opacity: 1}} show={show} onHide={handleClose}>
+            <Modal style={{opacity: 1}} show={show} onHide={closeSignConfirmation}>
                 <Modal.Header closeButton>
                     <Modal.Title>Warning! Are you sure you want to sign?</Modal.Title>
                 </Modal.Header>

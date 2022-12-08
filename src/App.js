@@ -23,11 +23,13 @@ function Routing() {
         <Route path="/login" element={<ConnectMetamask />}></Route>
         <Route path="/" element={
           <RouteGuard>
+            <Head />
             <Home />
           </RouteGuard>
         }></Route>
         <Route path="/document/:docId" element={
           <RouteGuard>
+            <Head />
             <DetailDocument />
           </RouteGuard>
         }></Route>
@@ -50,8 +52,7 @@ function App() {
         pauseOnHover
         theme="dark"
       />
-      <Head />
-      <div className="container">
+      <div className="">
         <Routing />
       </div>
     </div>
