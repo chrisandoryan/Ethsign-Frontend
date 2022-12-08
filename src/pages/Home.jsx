@@ -29,7 +29,7 @@ function Home() {
                 </ul>
                 <div className="tab-content clearfix">
                     <div className="tab-pane active" id="view-documents">
-                        <ViewAllDocuments />
+                        <ViewAllDocuments refresh={Math.random()}/>
                     </div>
                     <div className="tab-pane" id="upload-document">
                         <UploadDocument />

@@ -7,7 +7,7 @@ import { getAllDocuments, getDocumentDetail, signDocument } from "../../services
 import { getWalletAddressFromStorage } from "../../services/storage";
 import { humanFileSize } from "../../utils/fileSize";
 
-function ViewAllDocuments() {
+function ViewAllDocuments(props) {
     const [documents, setDocuments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeDocument, setActiveDocument] = useState(null);
@@ -18,6 +18,10 @@ function ViewAllDocuments() {
     const showSignConfirmation = () => setShow(true);
 
     useEffect(() => {
+        loadData();
+    }, [props.refresh]);
+
+    const loadData = () => {
         setLoading(true);
         getAllDocuments()
             .then((data) => {
@@ -27,7 +31,7 @@ function ViewAllDocuments() {
             .catch((err) => {
                 console.log(err);
             })
-    }, []);
+    }
 
     const displaySignConfirmation = (document) => {
         showSignConfirmation();
@@ -44,6 +48,7 @@ function ViewAllDocuments() {
         }
         setActiveDocument(null);
         closeSignConfirmation();
+        loadData();
     }
 
     return (
@@ -100,11 +105,20 @@ function ViewAllDocuments() {
                     })
                 }
             </Accordion>
-            <Modal style={{opacity: 1}} show={show} onHide={closeSignConfirmation}>
+            <Modal style={{ opacity: 1 }} show={show} onHide={closeSignConfirmation}>
                 <Modal.Header closeButton>
                     <Modal.Title>Warning! Are you sure you want to sign?</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Once signed, the document and your signature will be stored permanently in the Ethereum Network blockchain. There will be no way to revert the document.</Modal.Body>
+                <Modal.Body>
+                    <div>
+                        Once signed, the document and your signature will be stored permanently in the Ethereum Network blockchain. There will be no way to revert the document.
+                    </div>
+                    <div className="doc-info">
+                        <div><Badge bg="secondary">Title</Badge> {activeDocument?.doc_title}</div>
+                        <div><Badge bg="secondary">Size</Badge> {humanFileSize(activeDocument?.file_size)}</div>
+                        <div><Badge bg="secondary">IPFS Hash</Badge> {activeDocument?.ipfs_hash}</div>
+                    </div>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleDocumentSigning}>
                         Yes, Sign

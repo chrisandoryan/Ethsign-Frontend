@@ -87,3 +87,9 @@ code {
 .tab-control {
   text-decoration: none;
 }
+
+.react-pdf__Page__textContent {display: none;}
+
+.doc-info {
+  margin-top: 1em;
+}
